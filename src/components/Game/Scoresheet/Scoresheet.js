@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import pencil from './../../../img/pencil.png';
 import './Scoresheet.css';
 
 
@@ -8,6 +8,8 @@ class Scoresheet extends Component {
   render() {
     return (
       <div className="scoresheet">
+
+          <img className='pencil' src={ pencil } />
 
           <h2>Scoresheet</h2>
 

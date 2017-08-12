@@ -7,6 +7,14 @@
     margin-right: 100px;
     padding: 10px 10px 15px 40px;
     box-shadow: 4px 4px 8px black;
+    position: relative;
+}
+
+.pencil{
+    position: absolute;
+    right: -70px;
+    top: -20px;
+    transform: rotate(-20deg);
 }
 
 .scoresheet h2{

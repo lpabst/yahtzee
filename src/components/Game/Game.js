@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Scoresheet from './Scoresheet/Scoresheet.js';
 import Board from './Board/Board.js';
+import cup from './../../img/cup.png';
 import './Game.css';
 
 
@@ -71,6 +72,8 @@ class Game extends Component {
         />
 
         <Board />
+
+        <img className='cup' src={ cup } />
 
       </div>
     );
