@@ -15,6 +15,12 @@
     right: -70px;
     top: -20px;
     transform: rotate(-20deg);
+    cursor: pointer;
+}
+
+.pencil:hover{
+    transform: rotate(-21deg) scale(1.1);
+    top: 0px;
 }
 
 .scoresheet h2{

@@ -24,6 +24,10 @@
     box-shadow: 2px 2px 3px #000;
 }
 
+.link_rules:hover{
+    transform: scale(1.1);
+}
+
 .cup{
     transform: scale(0.5);
     position: absolute;
