@@ -29,13 +29,32 @@
 }
 
 .cup{
-    transform: scale(0.5);
+    transform: scale(0.5) rotate(90deg);
     position: absolute;
     right: -150px;
     bottom: 50px;
     cursor: pointer;
+    transition: all 1s;
 }
 
 .cup:hover{
-    transform: scale(0.6);
+    animation: shakeCup 0.2s infinite;
+}
+
+.cup:active{
+    transform: scale(0.5) rotate(10deg);
+    animation: rollDice 1s;
+}
+
+@keyframes shakeCup{
+    50%{
+        transform: scale(0.5) rotate(80deg);
+        bottom: 75px;
+    }
+}
+
+@keyframes rollDice{
+    to{
+        transform: scale(0.5) rotate(-20deg);
+    }
 }

@@ -12,14 +12,15 @@
 
 .pencil{
     position: absolute;
-    right: -70px;
+    right: -110px;
     top: -20px;
     transform: rotate(-20deg);
     cursor: pointer;
+    transition: all 0.4s;
 }
 
 .pencil:hover{
-    transform: rotate(-21deg) scale(1.1);
+    transform: rotate(-14deg) scale(1.1);
     top: 0px;
 }
 
