@@ -2,6 +2,24 @@
 .game{
     width: 100%;
     position: relative;
+    background: #663300;
 }
 
+.link_rules{
+    width: 120px;
+    height: 34px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 3px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    text-decoration: none;
+    background: #277714;
+    text-align: center;
+    line-height: 34px;
+    color: #222;
+    text-shadow: 1px 1px 1px black;
+    box-shadow: 2px 2px 3px #000;
+}
 

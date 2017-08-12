@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import './Game.css';
 
 
@@ -9,7 +9,9 @@ class Game extends Component {
     return (
       <div className="game">
 
-          Game page
+        <Link className='link_rules' to='/rules'>Rules</Link>
+        
+       
 
       </div>
     );
