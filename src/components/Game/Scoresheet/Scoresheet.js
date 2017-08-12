@@ -15,35 +15,35 @@ class Scoresheet extends Component {
           <table>
             <tr>
               <td>1</td>
-              <td>0</td>
+              <td>{ this.props.ones }</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>0</td>
+              <td>{ this.props.twos }</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>0</td>
+              <td>{ this.props.threes }</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>0</td>
+              <td>{ this.props.fours }</td>
             </tr>
             <tr>
               <td>5</td>
-              <td>0</td>
+              <td>{ this.props.fives }</td>
             </tr>
             <tr>
               <td>6</td>
-              <td>0</td>
+              <td>{ this.props.sixes }</td>
             </tr>
-            <tr>
+            <tr className='totals'>
               <td>Bonus</td>
-              <td>0</td>
+              <td>{ this.props.bonus }</td>
             </tr>
-            <tr>
+            <tr className='totals'>
               <td>Upper Total</td>
-              <td>0</td>
+              <td>{ this.props.upperTotal }</td>
             </tr>
           </table>
 
@@ -51,41 +51,41 @@ class Scoresheet extends Component {
           <table>
             <tr>
               <td>3-of-a-kind</td>
-              <td>0</td>
+              <td>{ this.props.threeKind }</td>
             </tr>
             <tr>
               <td>4-of-a-kind</td>
-              <td>0</td>
+              <td>{ this.props.fourKind }</td>
             </tr>
             <tr>
               <td>Full House</td>
-              <td>0</td>
+              <td>{ this.props.fullhouse }</td>
             </tr>
             <tr>
               <td>Small Straight</td>
-              <td>0</td>
+              <td>{ this.props.smallStraight }</td>
             </tr>
             <tr>
               <td>Large Straight</td>
-              <td>0</td>
+              <td>{ this.props.largeStraight }</td>
             </tr>
             <tr>
               <td>Yahtzee</td>
-              <td>0</td>
+              <td>{ this.props.yahtzee }</td>
             </tr>
             <tr>
               <td>Chance</td>
-              <td>0</td>
+              <td>{ this.props.chance }</td>
             </tr>
-            <tr>
+            <tr className='totals'>
               <td>Lower Total</td>
-              <td>0</td>
+              <td>{ this.props.lowerTotal }</td>
             </tr>
           </table>
 
-          <div className='total_div'>
+          <div className='total_div totals'>
             <h3>Grand Total</h3>
-            <p>0</p>
+            <p>{this.props.upperTotal + this.props.lowerTotal}</p>
           </div>
 
       </div>

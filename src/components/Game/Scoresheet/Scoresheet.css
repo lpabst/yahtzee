@@ -37,7 +37,7 @@
 }
 
 .total_div{
-    width: 138px;
+     max-width: 150px; 
     height: 26px;
     line-height: 26px;
     border: 1px solid black;
@@ -47,7 +47,12 @@
 }
 
 .total_div p{
-    width: 17px;
+    padding: 0px 6px 0px 6px;
     text-align: center;
     border-left: 1px solid black;
+}
+
+.totals:hover{
+    background: #ccc;
+    cursor: not-allowed;
 }
