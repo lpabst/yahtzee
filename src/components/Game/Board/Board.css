@@ -1,13 +1,36 @@
 
+.playing_area{
+    width: 600px;
+    height: 580px;
+    display: inline-block;
+    position: absolute;
+    top: 40px;
+    padding: 0;
+}
+
+.dice_holding_area{
+    width: 400px;
+    height: 80px;
+    position: absolute;
+    left: 90px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.dice_hole{
+    width: 70px;
+    height: 70px;
+    box-shadow: inset 3px 3px 3px 5px black;
+}
+
 .board{
     width: 600px;
     height: 500px;
     background: #277714;
     border-radius: 5px;
-    display: inline-block;
     position: absolute;
-    top: 120px;
-    box-shadow: inset 8px 8px 12px #000;
+    top: 80px;
+    box-shadow: inset 4px 4px 6px 6px #000;
     padding: 10px 10px;
 }
 

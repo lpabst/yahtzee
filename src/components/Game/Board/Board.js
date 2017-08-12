@@ -7,9 +7,19 @@ class Board extends Component {
 
   render() {
     return (
-      <div className="board">
+      <div className='playing_area'>
 
-          Board
+        <div className='dice_holding_area'>
+          <div className='dice_hole'></div>
+          <div className='dice_hole'></div>
+          <div className='dice_hole'></div>
+          <div className='dice_hole'></div>
+          <div className='dice_hole'></div>
+        </div>
+
+        <div className="board">
+          
+        </div>
 
       </div>
     );
