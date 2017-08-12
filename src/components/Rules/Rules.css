@@ -4,8 +4,8 @@
     position: relative;
     padding: 20px 20px 20px 20px;
     background: #663300;
-    color: white;
-    text-shadow: 1px 1px 1px black;
+    color: #ccc;
+     text-shadow: 0.5px 0.5px 0.5px #111; 
     font-size: 19px;
 }
 

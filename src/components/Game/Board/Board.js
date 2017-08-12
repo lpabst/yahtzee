@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import dice from './../../../img/dice.png';
 import './Board.css';
 
 
@@ -18,7 +18,11 @@ class Board extends Component {
         </div>
 
         <div className="board">
-          
+          <div className='single_die one'></div>
+          <div className='single_die two'></div>
+          <div className='single_die three'></div>
+          <div className='single_die four'></div>
+          <div className='single_die five'></div>
         </div>
 
       </div>
