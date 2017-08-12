@@ -1,9 +1,12 @@
 
 .board{
     width: 600px;
-    height: 600px;
-    background: #227771;
+    height: 500px;
+    background: #277714;
     border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    top: 100px;
 }
 
 

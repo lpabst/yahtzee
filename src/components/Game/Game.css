@@ -3,6 +3,7 @@
     width: 100%;
     position: relative;
     background: #663300;
+    padding: 20px 20px 20px 100px;
 }
 
 .link_rules{
@@ -15,7 +16,7 @@
     right: 20px;
     top: 20px;
     text-decoration: none;
-    background: #277714;
+    background: #227771;
     text-align: center;
     line-height: 34px;
     color: #222;
