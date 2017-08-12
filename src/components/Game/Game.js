@@ -26,6 +26,8 @@ class Game extends Component {
       largeStraight: 0,
       yahtzee: 0,
       chance: 0,
+      savedDice: [6, 6, 6, 6, 6],
+      diceOnTable: ['', '', '', '', '']
     }
   }
 
@@ -71,7 +73,10 @@ class Game extends Component {
         lowerTotal={threeKind+fourKind+fullhouse+smallStraight+largeStraight+yahtzee+chance}
         />
 
-        <Board />
+        <Board 
+        diceOnTable={ this.state.diceOnTable }
+        savedDice={ this.state.savedDice } 
+        />
 
         <img className='cup' src={ cup } />
 
