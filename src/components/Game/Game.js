@@ -29,6 +29,13 @@ class Game extends Component {
       savedDice: [6, 6, 6, 6, 6],
       diceOnTable: ['', '', '', '', '']
     }
+
+    this.rollDice = this.rollDice.bind(this);
+  }
+
+  rollDice(){
+    let cup = document.getElementById('cup');
+    cup.style.animation = 'rollDice 2s';
   }
 
   render() {
@@ -78,7 +85,7 @@ class Game extends Component {
         savedDice={ this.state.savedDice } 
         />
 
-        <img className='cup' src={ cup } />
+        <img id='cup' src={ cup } onClick={ this.rollDice } />
 
       </div>
     );

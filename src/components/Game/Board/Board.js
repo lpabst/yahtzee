@@ -13,17 +13,17 @@ class Board extends Component {
           {
             this.props.savedDice.map( (die, i) => {
               if (die === 1){
-                return <div className='saved_die one'></div>
+                return <div className='saved_die one' key={i}></div>
               }else if (die === 2){
-                return <div className='saved_die two'></div>
+                return <div className='saved_die two' key={i}></div>
               }else if (die === 3){
-                return <div className='saved_die three'></div>
+                return <div className='saved_die three' key={i}></div>
               }else if (die === 4){
-                return <div className='saved_die four'></div>
+                return <div className='saved_die four' key={i}></div>
               }else if (die === 5){
-                return <div className='saved_die five'></div>
+                return <div className='saved_die five' key={i}></div>
               }else if (die === 6){
-                return <div className='saved_die six'></div>
+                return <div className='saved_die six' key={i}></div>
               }else {
                 return <div className='one'></div>
               }
