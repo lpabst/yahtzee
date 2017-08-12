@@ -1,16 +1,53 @@
 
 .scoresheet{
-    width: 300px;
+    width: 250px;
     height: 600px;
     background: #eee;
     display: inline-block;
     margin-right: 100px;
-    padding: 10px 10px 15px 10px;
+    padding: 10px 10px 15px 40px;
     box-shadow: 4px 4px 8px black;
+}
+
+.scoresheet h2{
+    margin: 10px 0px 10px 0px;
 }
 
 .scoresheet table{
     margin-bottom: 20px;
+    margin-top: 3px;
     text-align: left;
+    border: 1px solid black;
+    padding: 3px 3px 3px 3px;
 }
 
+.scoresheet tr{
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
+.scoresheet tr:hover{
+    background: #ccc;
+}
+
+.scoresheet td{
+    border: 1px solid black;
+    padding: 4px 6px 4px 6px;
+}
+
+.total_div{
+    width: 138px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 6px 0px 6px;
+}
+
+.total_div p{
+    width: 17px;
+    text-align: center;
+    border-left: 1px solid black;
+}

@@ -14,70 +14,79 @@ class Scoresheet extends Component {
           <h3>Upper</h3>
           <table>
             <tr>
-              <th>1</th>
-              <th></th>
+              <td>1</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>2</th>
-              <th></th>
+              <td>2</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>3</th>
-              <th></th>
+              <td>3</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>4</th>
-              <th></th>
+              <td>4</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>5</th>
-              <th></th>
+              <td>5</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>6</th>
-              <th></th>
+              <td>6</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Bonus</th>
+              <td>Bonus</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Total</th>
+              <td>Upper Total</td>
+              <td>0</td>
             </tr>
           </table>
 
           <h3>Lower</h3> 
           <table>
             <tr>
-              <th>3-of-a-kind</th>
-              <th></th>
+              <td>3-of-a-kind</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>4-of-a-kind</th>
-              <th></th>
+              <td>4-of-a-kind</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Full House</th>
-              <th></th>
+              <td>Full House</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Small Straight</th>
-              <th></th>
+              <td>Small Straight</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Large Straight</th>
-              <th></th>
+              <td>Large Straight</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Yahtzee</th>
-              <th></th>
+              <td>Yahtzee</td>
+              <td>0</td>
             </tr>
             <tr>
-              <th>Chance</th>
-              <th></th>
+              <td>Chance</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Lower Total</td>
+              <td>0</td>
             </tr>
           </table>
 
-          <h3>Total</h3>
+          <div className='total_div'>
+            <h3>Grand Total</h3>
+            <p>0</p>
+          </div>
 
       </div>
     );
