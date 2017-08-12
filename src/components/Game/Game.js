@@ -26,16 +26,36 @@ class Game extends Component {
       largeStraight: 0,
       yahtzee: 0,
       chance: 0,
-      savedDice: [6, 6, 6, 6, 6],
-      diceOnTable: ['', '', '', '', '']
+      savedDice: [],
+      diceOnTable: [1, 1, 1, 1, 1],
+      rollNum: 1
     }
 
     this.rollDice = this.rollDice.bind(this);
   }
 
   rollDice(){
-    let cup = document.getElementById('cup');
-    cup.style.animation = 'rollDice 2s';
+    if (this.state.rollNum === 1){
+      this.setState({
+        savedDice: []
+      })
+    }
+    if (this.state.rollNum <= 3){
+      let { diceOnTable } = this.state;
+      let cup = document.getElementById('cup');
+      cup.style.animation = 'rollDice 2s';
+
+      for (let i = 0; i < diceOnTable.length; i ++){
+        let r = Math.floor( Math.random()*6) + 1;
+        diceOnTable[i] = r;
+      }
+      this.setState({
+        diceOnTable: diceOnTable,
+        rollNum: this.state.rollNum + 1
+      })
+    }else if (this.state.rollNum > 3){
+      alert('Please select a scoring option')
+    }
   }
 
   render() {
