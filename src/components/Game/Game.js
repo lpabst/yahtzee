@@ -31,9 +31,14 @@ class Game extends Component {
       rollNum: 1
     }
 
+    this.selectScore = this.selectScore.bind(this);
     this.rollDice = this.rollDice.bind(this);
     this.saveDie = this.saveDie.bind(this);
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
+  }
+
+  selectScore(num){
+    console.log(num)
   }
 
   rollDice(){
@@ -56,18 +61,18 @@ class Game extends Component {
         rollNum: this.state.rollNum + 1
       })
     }else if (this.state.rollNum > 3){
-      alert('Please select a scoring option')
+      alert('Please select a scoring option first by clicking on the scoresheet')
     }
   }
 
   saveDie(index){
     if (this.state.rollNum <= 1){
-      return alert('Please roll the dice by clicking on the cup')
+      return alert('Please roll the dice first by clicking on the cup')
     }
     let num = this.state.diceOnTable[index];
     let diceOnTable = this.state.diceOnTable.slice()
     let savedDice = this.state.savedDice.slice();
-    diceOnTable.splice(index, 1, '');
+    diceOnTable.splice(index, 1);
     savedDice.push(num);
     this.setState({
       savedDice: savedDice,
@@ -80,7 +85,7 @@ class Game extends Component {
     console.log(num)
     let savedDice = this.state.savedDice.slice();
     let diceOnTable = this.state.diceOnTable.slice();
-    savedDice.splice(index, 1, '');
+    savedDice.splice(index, 1);
     diceOnTable.push(num);
     this.setState({
       savedDice: savedDice,
@@ -128,6 +133,7 @@ class Game extends Component {
         yahtzee={yahtzee}
         chance={chance}
         lowerTotal={threeKind+fourKind+fullhouse+smallStraight+largeStraight+yahtzee+chance}
+        selectScore={this.selectScore}
         />
 
         <Board 
