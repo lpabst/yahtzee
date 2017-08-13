@@ -32,6 +32,7 @@ class Game extends Component {
     }
 
     this.rollDice = this.rollDice.bind(this);
+    this.saveDie = this.saveDie.bind(this);
   }
 
   rollDice(){
@@ -56,6 +57,16 @@ class Game extends Component {
     }else if (this.state.rollNum > 3){
       alert('Please select a scoring option')
     }
+  }
+
+  saveDie(index){
+    let num = this.state.diceOnTable[index];
+    let diceOnTable = this.state.diceOnTable.splice(index, 1);
+    let savedDice = this.state.savedDice.push(num);
+    this.setState({
+      savedDice: savedDice,
+      diceOnTable: diceOnTable
+    })
   }
 
   render() {
@@ -103,6 +114,7 @@ class Game extends Component {
         <Board 
         diceOnTable={ this.state.diceOnTable }
         savedDice={ this.state.savedDice } 
+        saveDie={ this.saveDie }
         />
 
         <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
