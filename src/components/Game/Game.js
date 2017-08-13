@@ -12,6 +12,7 @@ class Game extends Component {
     super(props);
 
     this.state = {
+      showAreYouSure: false,
       ones: 0,
       twos: 0,
       threes: 0,
@@ -28,17 +29,38 @@ class Game extends Component {
       chance: 0,
       savedDice: [],
       diceOnTable: [6, 6, 6, 6, 6],
-      rollNum: 1
+      rollNum: 1,
+      userScoreSelection: ''
     }
 
+    this.assertSelection = this.assertSelection.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.selectScore = this.selectScore.bind(this);
     this.rollDice = this.rollDice.bind(this);
     this.saveDie = this.saveDie.bind(this);
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
   }
 
+  assertSelection(){
+    let num = this.state.userScoreSelection
+    console.log(num) //THIS IS WORKING, NOW WE DO A SWITCH AND PATCH BUGS
+    this.closeModal();
+  }
+
+  closeModal(){
+    this.setState({
+      showAreYouSure: false
+    })
+  }
+
   selectScore(num){
-    console.log(num)
+    if (this.state.rollNum <= 1){
+      return alert('Please roll the dice first by clicking on the cup')
+    }
+    this.setState({
+      showAreYouSure: true,
+      userScoreSelection: num
+    })
   }
 
   rollDice(){
@@ -112,8 +134,21 @@ class Game extends Component {
       chance,
     } = this.state
 
+    let areYouSure = null;
+    if (this.state.showAreYouSure){
+      areYouSure =  <div className='are_you_sure'>
+                      <p>Are You Sure?</p>
+                      <button onClick={ this.assertSelection } >Yes</button>
+                      <button onClick={ this.closeModal } >No</button>
+                    </div>
+    }else{
+      areYouSure = null;
+    }
+
     return (
       <div className="game">
+
+        { areYouSure }
 
         <Link className='link_rules' to='/rules'>Rules</Link>
         
