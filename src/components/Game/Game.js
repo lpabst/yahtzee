@@ -27,12 +27,13 @@ class Game extends Component {
       yahtzee: 0,
       chance: 0,
       savedDice: [],
-      diceOnTable: [1, 1, 1, 1, 1],
+      diceOnTable: [6, 6, 6, 6, 6],
       rollNum: 1
     }
 
     this.rollDice = this.rollDice.bind(this);
     this.saveDie = this.saveDie.bind(this);
+    this.returnDiceToTable = this.returnDiceToTable.bind(this);
   }
 
   rollDice(){
@@ -60,9 +61,27 @@ class Game extends Component {
   }
 
   saveDie(index){
+    if (this.state.rollNum <= 1){
+      return alert('Please roll the dice by clicking on the cup')
+    }
     let num = this.state.diceOnTable[index];
-    let diceOnTable = this.state.diceOnTable.splice(index, 1);
-    let savedDice = this.state.savedDice.push(num);
+    let diceOnTable = this.state.diceOnTable.slice()
+    let savedDice = this.state.savedDice.slice();
+    diceOnTable.splice(index, 1, '');
+    savedDice.push(num);
+    this.setState({
+      savedDice: savedDice,
+      diceOnTable: diceOnTable
+    })
+  }
+
+  returnDiceToTable(index){
+    let num = this.state.savedDice[index];
+    console.log(num)
+    let savedDice = this.state.savedDice.slice();
+    let diceOnTable = this.state.diceOnTable.slice();
+    savedDice.splice(index, 1, '');
+    diceOnTable.push(num);
     this.setState({
       savedDice: savedDice,
       diceOnTable: diceOnTable
@@ -115,6 +134,7 @@ class Game extends Component {
         diceOnTable={ this.state.diceOnTable }
         savedDice={ this.state.savedDice } 
         saveDie={ this.saveDie }
+        returnDiceToTable={ this.returnDiceToTable }
         />
 
         <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
