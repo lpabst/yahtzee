@@ -105,7 +105,7 @@ class Game extends Component {
         savedDice={ this.state.savedDice } 
         />
 
-        <img id='cup' src={ cup } onClick={ this.rollDice } />
+        <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
 
       </div>
     );

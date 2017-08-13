@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import dice from './../../../img/dice.png';
 import './Board.css';
 
 
