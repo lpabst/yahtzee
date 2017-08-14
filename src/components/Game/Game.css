@@ -60,10 +60,17 @@
     animation: shakeCup 0.2s infinite;
 }
 
-/* #cup:active{
-    transform: scale(0.5) rotate(10deg);
-    animation: rollDice 1s;
-} */
+.roll_number{
+    width: 150px;
+    height: 36px;
+    text-align: right;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 30px;
+    position: fixed;
+    top: 20px;
+    right: 300px;
+}
 
 @keyframes shakeCup{
     50%{

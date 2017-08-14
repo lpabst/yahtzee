@@ -37,7 +37,7 @@ class Game extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.selectScore = this.selectScore.bind(this);
     this.rollDice = this.rollDice.bind(this);
-    this.saveDie = this.saveDie.bind(this);
+    this.setDiceAside = this.setDiceAside.bind(this);
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
   }
 
@@ -87,7 +87,7 @@ class Game extends Component {
     }
   }
 
-  saveDie(index){
+  setDiceAside(index){
     if (this.state.rollNum <= 1){
       return alert('Please roll the dice first by clicking on the cup')
     }
@@ -145,6 +145,18 @@ class Game extends Component {
       areYouSure = null;
     }
 
+    let rollNum = this.state.rollNum;
+    let fontSize = {
+      fontSize: '36px'
+    }
+    if (rollNum > 3){
+      rollNum = 'Please select a scoring option from the scoresheet'
+      fontSize = {
+        fontSize: '16px',
+        lineHeight: '16px'
+      }
+    }
+
     return (
       <div className="game">
 
@@ -174,11 +186,13 @@ class Game extends Component {
         <Board 
         diceOnTable={ this.state.diceOnTable }
         savedDice={ this.state.savedDice } 
-        saveDie={ this.saveDie }
+        setDiceAside={ this.setDiceAside }
         returnDiceToTable={ this.returnDiceToTable }
         />
 
         <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
+
+        <h4 className='roll_number' style={ fontSize }>Roll: { rollNum }</h4>
 
       </div>
     );
