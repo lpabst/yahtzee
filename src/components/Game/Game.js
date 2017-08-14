@@ -43,7 +43,82 @@ class Game extends Component {
 
   assertSelection(){
     let num = this.state.userScoreSelection
-    console.log(num) //THIS IS WORKING, NOW WE DO A SWITCH AND PATCH BUGS
+    let finalDice = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0
+    }
+
+    for (var i = 0; i < 5; i ++){
+      if (this.state.diceOnTable[i]){
+        finalDice[this.state.diceOnTable[i]] ++
+      }
+      if (this.state.savedDice[i]){
+        finalDice[this.state.savedDice[i]] ++
+      }
+    }
+    
+    let diceTotal = finalDice[1]+finalDice[2]*2+finalDice[3]*3+finalDice[4]*4+finalDice[5]*5+finalDice[6]*6
+
+    switch (num){
+      case 1:
+        this.setState({
+          ones: finalDice[1]
+        })
+        break;
+      case 2:
+        this.setState({
+          twos: finalDice[2]*2
+        })
+        break;
+      case 3:
+        this.setState({
+          ones: finalDice[3]*3
+        })
+        break;
+      case 4:
+        this.setState({
+          ones: finalDice[4]*4
+        })
+        break;
+      case 5:
+        this.setState({
+          ones: finalDice[5]*5
+        })
+        break;
+      case 6:
+        this.setState({
+          ones: finalDice[6]*6
+        })
+        break;
+      case 7:
+        let threeKindScore = 0;
+        for (var key in finalDice){
+          if (finalDice[key] >= 3){
+            threeKindScore = diceTotal
+          }
+        }
+        this.setState({
+          threeKind: threeKindScore
+        })
+        break;
+      case 8:
+        let fourKindScore = 0;
+        for (var key in finalDice){
+          if (finalDice[key] >= 4){
+            fourKindScore = diceTotal
+          }
+        }
+        this.setState({
+          fourKind: fourKindScore
+        })
+        break;
+      default:
+      console.log('default switch')
+    }
     this.closeModal();
   }
 
@@ -146,12 +221,12 @@ class Game extends Component {
     }
 
     let rollNum = this.state.rollNum;
-    let fontSize = {
+    let rollStyles = {
       fontSize: '36px'
     }
     if (rollNum > 3){
       rollNum = 'Please select a scoring option from the scoresheet'
-      fontSize = {
+      rollStyles = {
         fontSize: '16px',
         lineHeight: '16px'
       }
@@ -192,7 +267,7 @@ class Game extends Component {
 
         <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
 
-        <h4 className='roll_number' style={ fontSize }>Roll: { rollNum }</h4>
+        <h4 className='roll_number' style={ rollStyles }>Roll: { rollNum }</h4>
 
       </div>
     );
