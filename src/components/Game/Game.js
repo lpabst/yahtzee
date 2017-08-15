@@ -76,22 +76,22 @@ class Game extends Component {
         break;
       case 3:
         this.setState({
-          ones: finalDice[3]*3
+          threes: finalDice[3]*3
         })
         break;
       case 4:
         this.setState({
-          ones: finalDice[4]*4
+          fours: finalDice[4]*4
         })
         break;
       case 5:
         this.setState({
-          ones: finalDice[5]*5
+          fives: finalDice[5]*5
         })
         break;
       case 6:
         this.setState({
-          ones: finalDice[6]*6
+          sixes: finalDice[6]*6
         })
         break;
       case 7:
@@ -107,8 +107,8 @@ class Game extends Component {
         break;
       case 8:
         let fourKindScore = 0;
-        for (var key in finalDice){
-          if (finalDice[key] >= 4){
+        for (var fkkey in finalDice){
+          if (finalDice[fkkey] >= 4){
             fourKindScore = diceTotal
           }
         }
@@ -116,9 +116,52 @@ class Game extends Component {
           fourKind: fourKindScore
         })
         break;
+      case 25:
+        let fullhouseScore = 0;
+        for (var fhkey in finalDice){
+          if (finalDice[fhkey] === 3){
+            for (var fhkey2 in finalDice){
+              if (finalDice[fhkey2] === 2){
+                fullhouseScore = 25;
+              }
+            }
+          }
+        }
+        this.setState({
+          fullhouse: fullhouseScore
+        })
+        break;
+      case 30:
+        let smallStraightScore = 0;
+        if ((finalDice[1] >= 1 && finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1) || (finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1) || (finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1 && finalDice[6] >= 1) ){
+          smallStraightScore = 30;
+        }
+        this.setState({
+          smallStraight: smallStraightScore
+        })
+        break;
+      case 40:
+        let largeStraightScore = 0;
+        if ((finalDice[1] === 1 && finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1) || ((finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1 && finalDice[6] === 1))){
+          largeStraightScore = 40;
+        }
+        this.setState({
+          largeStraight: largeStraightScore
+        })
+        break;
+      case 51:
+        this.setState({
+          chance: diceTotal
+        })
+        break;
       default:
       console.log('default switch')
     }
+    this.setState({
+      rollNum: 1,
+      diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+      savedDice: []
+    })
     this.closeModal();
   }
 
