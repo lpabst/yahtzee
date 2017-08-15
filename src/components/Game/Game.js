@@ -64,10 +64,13 @@ class Game extends Component {
     let diceTotal = finalDice[1]+finalDice[2]*2+finalDice[3]*3+finalDice[4]*4+finalDice[5]*5+finalDice[6]*6
 
     switch (num){
+      // NEED TO KEEP THEM FROM SCORING SAME ROW AGAIN. NEED TO WRITE YAHTZEE FUNCTION.
       case 1:
-        this.setState({
-          ones: finalDice[1]
-        })
+        if (this.state.ones === 0){
+          this.setState({
+            ones: finalDice[1]
+          })
+        }
         break;
       case 2:
         this.setState({
