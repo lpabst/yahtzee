@@ -13,20 +13,20 @@ class Game extends Component {
 
     this.state = {
       showAreYouSure: false,
-      ones: 0,
-      twos: 0,
-      threes: 0,
-      fours: 0,
-      fives: 0,
-      sixes: 0,
-      bonus: 0,
-      threeKind: 0,
-      fourKind: 0,
-      fullhouse: 0,
-      smallStraight: 0,
-      largeStraight: 0,
-      yahtzee: 0,
-      chance: 0,
+      ones: '',
+      twos: '',
+      threes: '',
+      fours: '',
+      fives: '',
+      sixes: '',
+      bonus: '',
+      threeKind: '',
+      fourKind: '',
+      fullhouse: '',
+      smallStraight: '',
+      largeStraight: '',
+      yahtzee: '',
+      chance: '',
       savedDice: [],
       diceOnTable: [6, 6, 6, 6, 6],
       rollNum: 1,
@@ -66,96 +66,124 @@ class Game extends Component {
     switch (num){
       // NEED TO KEEP THEM FROM SCORING SAME ROW AGAIN. NEED TO WRITE YAHTZEE FUNCTION.
       case 1:
-        if (this.state.ones === 0){
+        if (this.state.ones === ''){
           this.setState({
-            ones: finalDice[1]
+            ones: finalDice[1],
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
       case 2:
-        this.setState({
-          twos: finalDice[2]*2
-        })
+        if (this.state.twos === ''){
+          this.setState({
+            twos: finalDice[2]*2,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
+          })
+        }
         break;
       case 3:
-        this.setState({
-          threes: finalDice[3]*3
-        })
+        if (this.state.threes === ''){  
+          this.setState({
+            threes: finalDice[3]*3
+          })
+        }
         break;
       case 4:
-        this.setState({
-          fours: finalDice[4]*4
-        })
+        if (this.state.fours === ''){  
+          this.setState({
+            fours: finalDice[4]*4
+          })
+        }
         break;
       case 5:
-        this.setState({
-          fives: finalDice[5]*5
-        })
+        if (this.state.fives === ''){  
+          this.setState({
+            fives: finalDice[5]*5
+          })
+        }
         break;
       case 6:
-        this.setState({
-          sixes: finalDice[6]*6
-        })
+        if (this.state.sixes === ''){  
+          this.setState({
+            sixes: finalDice[6]*6
+          })
+        }
         break;
       case 7:
-        let threeKindScore = 0;
-        for (var key in finalDice){
-          if (finalDice[key] >= 3){
-            threeKindScore = diceTotal
+        if (this.state.threeKind === ''){
+          let threeKindScore = 0;
+          for (var key in finalDice){
+            if (finalDice[key] >= 3){
+              threeKindScore = diceTotal
+            }
           }
+          this.setState({
+            threeKind: threeKindScore
+          })
         }
-        this.setState({
-          threeKind: threeKindScore
-        })
         break;
       case 8:
-        let fourKindScore = 0;
-        for (var fkkey in finalDice){
-          if (finalDice[fkkey] >= 4){
-            fourKindScore = diceTotal
+        if (this.state.fourKind === ''){
+          let fourKindScore = 0;
+          for (var fkkey in finalDice){
+            if (finalDice[fkkey] >= 4){
+              fourKindScore = diceTotal
+            }
           }
+          this.setState({
+            fourKind: fourKindScore
+          })
         }
-        this.setState({
-          fourKind: fourKindScore
-        })
         break;
       case 25:
-        let fullhouseScore = 0;
-        for (var fhkey in finalDice){
-          if (finalDice[fhkey] === 3){
-            for (var fhkey2 in finalDice){
-              if (finalDice[fhkey2] === 2){
-                fullhouseScore = 25;
+        if (this.state.fullhouse === ''){
+          let fullhouseScore = 0;
+          for (var fhkey in finalDice){
+            if (finalDice[fhkey] === 3){
+              for (var fhkey2 in finalDice){
+                if (finalDice[fhkey2] === 2){
+                  fullhouseScore = 25;
+                }
               }
             }
           }
+          this.setState({
+            fullhouse: fullhouseScore
+          })
         }
-        this.setState({
-          fullhouse: fullhouseScore
-        })
         break;
       case 30:
-        let smallStraightScore = 0;
-        if ((finalDice[1] >= 1 && finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1) || (finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1) || (finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1 && finalDice[6] >= 1) ){
-          smallStraightScore = 30;
+        if (this.state.smallStraight === ''){
+          let smallStraightScore = 0;
+          if ((finalDice[1] >= 1 && finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1) || (finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1) || (finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1 && finalDice[6] >= 1) ){
+            smallStraightScore = 30;
+          }
+          this.setState({
+            smallStraight: smallStraightScore
+          })
         }
-        this.setState({
-          smallStraight: smallStraightScore
-        })
         break;
       case 40:
-        let largeStraightScore = 0;
-        if ((finalDice[1] === 1 && finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1) || ((finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1 && finalDice[6] === 1))){
-          largeStraightScore = 40;
+        if (this.state.largeStraight === ''){
+          let largeStraightScore = 0;
+          if ((finalDice[1] === 1 && finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1) || ((finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1 && finalDice[6] === 1))){
+            largeStraightScore = 40;
+          }
+          this.setState({
+            largeStraight: largeStraightScore
+          })
         }
-        this.setState({
-          largeStraight: largeStraightScore
-        })
         break;
       case 51:
-        this.setState({
-          chance: diceTotal
-        })
+        if (this.state.chance === ''){
+          this.setState({
+            chance: diceTotal
+          })
+        }
         break;
       default:
       console.log('default switch')

@@ -24,6 +24,11 @@
     top: 0px;
 }
 
+.scoresheet_scores{
+    width: 40px;
+    text-align: center;
+}
+
 .scoresheet h2{
     margin: 10px 0px 10px 0px;
 }
@@ -63,7 +68,6 @@
 
 .total_div p{
     padding: 0px 6px 0px 6px;
-    text-align: center;
     border-left: 1px solid black;
 }
 
