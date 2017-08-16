@@ -88,28 +88,40 @@ class Game extends Component {
       case 3:
         if (this.state.threes === ''){  
           this.setState({
-            threes: finalDice[3]*3
+            threes: finalDice[3]*3,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
       case 4:
         if (this.state.fours === ''){  
           this.setState({
-            fours: finalDice[4]*4
+            fours: finalDice[4]*4,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
       case 5:
         if (this.state.fives === ''){  
           this.setState({
-            fives: finalDice[5]*5
+            fives: finalDice[5]*5,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
       case 6:
         if (this.state.sixes === ''){  
           this.setState({
-            sixes: finalDice[6]*6
+            sixes: finalDice[6]*6,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
@@ -122,7 +134,10 @@ class Game extends Component {
             }
           }
           this.setState({
-            threeKind: threeKindScore
+            threeKind: threeKindScore,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
@@ -135,7 +150,10 @@ class Game extends Component {
             }
           }
           this.setState({
-            fourKind: fourKindScore
+            fourKind: fourKindScore,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
@@ -152,7 +170,10 @@ class Game extends Component {
             }
           }
           this.setState({
-            fullhouse: fullhouseScore
+            fullhouse: fullhouseScore,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
@@ -163,7 +184,10 @@ class Game extends Component {
             smallStraightScore = 30;
           }
           this.setState({
-            smallStraight: smallStraightScore
+            smallStraight: smallStraightScore,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
@@ -174,25 +198,26 @@ class Game extends Component {
             largeStraightScore = 40;
           }
           this.setState({
-            largeStraight: largeStraightScore
+            largeStraight: largeStraightScore,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
       case 51:
         if (this.state.chance === ''){
           this.setState({
-            chance: diceTotal
+            chance: diceTotal,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
           })
         }
         break;
       default:
       console.log('default switch')
     }
-    this.setState({
-      rollNum: 1,
-      diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
-      savedDice: []
-    })
     this.closeModal();
   }
 
@@ -320,7 +345,7 @@ class Game extends Component {
         fives={fives}
         sixes={sixes}
         bonus={bonus}
-        upperTotal={ones+twos+threes+fours+fives+sixes+bonus}
+        upperTotal={Number(ones)+Number(twos)+Number(threes)+Number(fours)+Number(fives)+Number(sixes)+Number(bonus)}
         threeKind={threeKind}
         fourKind={fourKind}
         fullhouse={fullhouse}
