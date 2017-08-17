@@ -42,7 +42,8 @@ class Game extends Component {
   }
 
   assertSelection(){
-    let num = this.state.userScoreSelection
+    let num = this.state.userScoreSelection;
+    let isYahtzee = false;
     let finalDice = {
       1: 0,
       2: 0,
@@ -60,11 +61,34 @@ class Game extends Component {
         finalDice[this.state.savedDice[i]] ++
       }
     }
+
+    for (var number in finalDice){
+      if (finalDice[number] === 5){
+        isYahtzee = true;
+      }
+    }
     
     let diceTotal = finalDice[1]+finalDice[2]*2+finalDice[3]*3+finalDice[4]*4+finalDice[5]*5+finalDice[6]*6
 
     switch (num){
-      // NEED TO KEEP THEM FROM SCORING SAME ROW AGAIN. NEED TO WRITE YAHTZEE FUNCTION.
+      // NEED TO KEEP THEM FROM SCORING SAME ROW AGAIN. NEED TO WRITE BONUS YAHTZEE FUNCTION.
+      case 50:
+        if (this.state.yahtzee === '' && isYahtzee){
+          this.setState({
+            yahtzee: 50,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
+          })
+        }else if (this.state.yahtzee === '' && !isYahtzee){
+          this.setState({
+            yahtzee: 0,
+            rollNum: 1,
+            diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+            savedDice: []
+          })
+        }
+        break;
       case 1:
         if (this.state.ones === ''){
           this.setState({
@@ -230,6 +254,25 @@ class Game extends Component {
   selectScore(num){
     if (this.state.rollNum <= 1){
       return alert('Please roll the dice first by clicking on the cup')
+    }
+    let stateMatch = {
+      1: 'ones',
+      2: 'twos',
+      3: 'threes',
+      4: 'fours',
+      5: 'fives',
+      6: 'sixes',
+      7: 'threeKind',
+      8: 'fourKind',
+      25: 'fullhouse',
+      30: 'smallStraight',
+      40: 'largeStraight',
+      50: 'yahtzee',
+      51: 'chance'
+    }
+    let match = stateMatch[num]
+    if (this.state[match] !== ''){
+      return alert('You have already scored in that category, and cannot score there again')
     }
     this.setState({
       showAreYouSure: true,
