@@ -41,12 +41,12 @@ class Scoresheet extends Component {
                 <td className='scoresheet_scores'>{ this.props.sixes }</td>
               </tr>
               <tr className='totals'>
-                <td>Bonus</td>
-                <td className='scoresheet_scores'>{ this.props.bonus }</td>
-              </tr>
-              <tr className='totals'>
                 <td>Upper Total</td>
                 <td className='scoresheet_scores'>{ this.props.upperTotal }</td>
+              </tr>
+              <tr className='totals'>
+                <td>Bonus</td>
+                <td className='scoresheet_scores'>{ this.props.bonus }</td>
               </tr>
             </tbody>
           </table>

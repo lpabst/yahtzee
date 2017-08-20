@@ -451,7 +451,7 @@ class Game extends Component {
         fives={fives}
         sixes={sixes}
         bonus={bonus}
-        upperTotal={Number(ones)+Number(twos)+Number(threes)+Number(fours)+Number(fives)+Number(sixes)+Number(bonus)}
+        upperTotal={ Number(ones)+Number(twos)+Number(threes)+Number(fours)+Number(fives)+Number(sixes) }
         threeKind={threeKind}
         fourKind={fourKind}
         fullhouse={fullhouse}
@@ -459,7 +459,7 @@ class Game extends Component {
         largeStraight={largeStraight}
         yahtzee={yahtzee}
         chance={chance}
-        lowerTotal={Number(threeKind)+Number(fourKind)+Number(fullhouse)+Number(smallStraight)+Number(largeStraight)+Number(yahtzee)+Number(chance) }
+        lowerTotal={ Number(threeKind)+Number(fourKind)+Number(fullhouse)+Number(smallStraight)+Number(largeStraight)+Number(yahtzee)+Number(chance) }
         selectScore={this.selectScore}
         />
 
