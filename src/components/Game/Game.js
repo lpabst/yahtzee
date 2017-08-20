@@ -30,7 +30,8 @@ class Game extends Component {
       savedDice: [],
       diceOnTable: [6, 6, 6, 6, 6],
       rollNum: 1,
-      userScoreSelection: ''
+      userScoreSelection: '',
+      showYahtzeeModal: false
     }
 
     this.assertSelection = this.assertSelection.bind(this);
@@ -73,7 +74,12 @@ class Game extends Component {
     switch (num){
       // NEED TO WRITE BONUS YAHTZEE FUNCTION.
       case 50:
-        if (this.state.yahtzee === '' && isYahtzee){
+        if (this.state.yahtzee >= 50){
+          this.setState({
+            yahtzee: this.state.yahtzee + 100,
+            showYahtzeeModal: true
+          })
+        }else if (this.state.yahtzee === '' && isYahtzee){
           this.setState({
             yahtzee: 50,
             rollNum: 1,
@@ -251,6 +257,12 @@ class Game extends Component {
     })
   }
 
+  closeYahtzeeModal(){
+    this.setState({
+      showYahtzeeModal: false
+    })
+  }
+
   selectScore(num){
     if (this.state.rollNum <= 1){
       return alert('Please roll the dice first by clicking on the cup')
@@ -372,6 +384,16 @@ class Game extends Component {
         fontSize: '16px',
         lineHeight: '16px'
       }
+    }
+
+    let yahtzeeModal = null;
+    if(this.state.showYahtzeeModal){
+      yahtzeeModal = <div className='yahtzee_modal'>
+          <p>When you score more than one Yahtzee in a game, you get 100 bonus points, and you get to use the yahtzee to score in another spot. If your upper score for that number hasn't yet been filled, you MUST score up there. If not, you can score in any of the lower section categories and receive that score. For instance, if you roll a yahtzee with fives, and you haven't scored in the fives section up top, you must score there. If you already have that section filled in, you can score in the large straight caterogy if you wish, and receive the full 40 points!</p>
+          <button onClick={ this.closeYahtzeeModal }>Close</button>
+        </div>
+    }else{
+      yahtzeeModal = null
     }
 
     return (
