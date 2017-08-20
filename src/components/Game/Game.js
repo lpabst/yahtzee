@@ -226,8 +226,16 @@ class Game extends Component {
   }
 
   closeModal(){
+    let { ones, twos, threes, fours, fives, sixes } = this.state;
+    let bonus;
+    if (ones + twos + threes + fours + fives + sixes >= 63){
+      bonus = 35;
+    }else{
+      bonus = 0;
+    }
     this.setState({
-      showAreYouSure: false
+      showAreYouSure: false,
+      bonus: bonus
     })
   }
 
