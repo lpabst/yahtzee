@@ -19,7 +19,7 @@ class Game extends Component {
       fours: '',
       fives: '',
       sixes: '',
-      bonus: '',
+      bonus: 0,
       threeKind: '',
       fourKind: '',
       fullhouse: '',
@@ -226,16 +226,8 @@ class Game extends Component {
   }
 
   closeModal(){
-    let { ones, twos, threes, fours, fives, sixes } = this.state;
-    let bonus;
-    if (ones + twos + threes + fours + fives + sixes >= 63){
-      bonus = 35;
-    }else{
-      bonus = 0;
-    }
     this.setState({
-      showAreYouSure: false,
-      bonus: bonus
+      showAreYouSure: false
     })
   }
 
@@ -395,7 +387,6 @@ class Game extends Component {
       fours,
       fives,
       sixes,
-      bonus,
       threeKind,
       fourKind,
       fullhouse,
@@ -404,6 +395,13 @@ class Game extends Component {
       yahtzee,
       chance,
     } = this.state
+    let bonus;
+
+    if (Number(ones) + Number(twos) + Number(threes) + Number(fours) + Number(fives) + Number(sixes) >= 63){
+      bonus = 35;
+    }else{
+      bonus = 0;
+    }
 
     let areYouSure = null;
     if (this.state.showAreYouSure){
@@ -461,7 +459,7 @@ class Game extends Component {
         largeStraight={largeStraight}
         yahtzee={yahtzee}
         chance={chance}
-        lowerTotal={threeKind+fourKind+fullhouse+smallStraight+largeStraight+yahtzee+chance}
+        lowerTotal={Number(threeKind)+Number(fourKind)+Number(fullhouse)+Number(smallStraight)+Number(largeStraight)+Number(yahtzee)+Number(chance) }
         selectScore={this.selectScore}
         />
 
