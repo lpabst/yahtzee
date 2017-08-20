@@ -31,7 +31,10 @@ class Game extends Component {
       diceOnTable: [6, 6, 6, 6, 6],
       rollNum: 1,
       userScoreSelection: '',
-      showYahtzeeModal: false
+      showYahtzeeModal: false,
+      isYahtzee: false,
+      finalDice: {},
+      yahtzeeNum: null
     }
 
     this.assertSelection = this.assertSelection.bind(this);
@@ -44,42 +47,13 @@ class Game extends Component {
 
   assertSelection(){
     let num = this.state.userScoreSelection;
-    let isYahtzee = false;
-    let finalDice = {
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0
-    }
-
-    for (var i = 0; i < 5; i ++){
-      if (this.state.diceOnTable[i]){
-        finalDice[this.state.diceOnTable[i]] ++
-      }
-      if (this.state.savedDice[i]){
-        finalDice[this.state.savedDice[i]] ++
-      }
-    }
-
-    for (var number in finalDice){
-      if (finalDice[number] === 5){
-        isYahtzee = true;
-      }
-    }
+    let { finalDice, isYahtzee } = this.state
     
     let diceTotal = finalDice[1]+finalDice[2]*2+finalDice[3]*3+finalDice[4]*4+finalDice[5]*5+finalDice[6]*6
 
     switch (num){
-      // NEED TO WRITE BONUS YAHTZEE FUNCTION.
       case 50:
-        if (this.state.yahtzee >= 50){
-          this.setState({
-            yahtzee: this.state.yahtzee + 100,
-            showYahtzeeModal: true
-          })
-        }else if (this.state.yahtzee === '' && isYahtzee){
+        if (this.state.yahtzee === '' && isYahtzee){
           this.setState({
             yahtzee: 50,
             rollNum: 1,
@@ -267,6 +241,7 @@ class Game extends Component {
     if (this.state.rollNum <= 1){
       return alert('Please roll the dice first by clicking on the cup')
     }
+
     let stateMatch = {
       1: 'ones',
       2: 'twos',
@@ -282,6 +257,7 @@ class Game extends Component {
       50: 'yahtzee',
       51: 'chance'
     }
+    this.stateMatch = stateMatch
     let match = stateMatch[num]
     if (this.state[match] !== ''){
       return alert('You have already scored in that category, and cannot score there again')
@@ -310,9 +286,67 @@ class Game extends Component {
       this.setState({
         diceOnTable: diceOnTable,
         rollNum: this.state.rollNum + 1
+      }, function(){
+          let isYahtzee = false;
+          let yahtzeeNum = null;
+          let finalDice = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0
+          }
+          for (var i = 0; i < 5; i ++){
+            if (this.state.diceOnTable[i]){
+              finalDice[this.state.diceOnTable[i]] ++
+            }
+            if (this.state.savedDice[i]){
+              finalDice[this.state.savedDice[i]] ++
+            }
+          }
+          for (var number in finalDice){
+            if (finalDice[number] === 5){
+              isYahtzee = true;
+              yahtzeeNum = number
+            }
+          }
+          if (isYahtzee && this.state.yahtzee >= 50){
+            this.setState({
+              yahtzee: this.state.yahtzee + 100,
+              isYahtzee: isYahtzee,
+              finalDice: finalDice,
+              showYahtzeeModal: true,
+              yahtzeeNum: yahtzeeNum
+            }, this.bonusYahtzee)
+          }else{
+            this.setState({
+              isYahtzee: isYahtzee,
+              finalDice: finalDice,
+              yahtzeeNum: yahtzeeNum
+            })
+          }
       })
     }else if (this.state.rollNum > 3){
       alert('Please select a scoring option first by clicking on the scoresheet')
+    }
+  }
+
+  bonusYahtzee(){
+    let num = this.stateMatch[this.state.yahtzeeNum]
+    if (this.state[num] === ''){
+      //user hasn't scored upper section yet
+      let state = this.state
+      state[num] = num * 5
+      let newState = Object.assign({}, this.state, state)
+      this.state = newState
+      this.setState({
+        rollNum: 1,
+        diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
+        savedDice: []
+      })
+    }else{
+      //upper section has been scored, user may select any other box they wish. Play continues as normal
     }
   }
 
@@ -400,6 +434,7 @@ class Game extends Component {
       <div className="game">
 
         { areYouSure }
+        { yahtzeeModal }
 
         <Link className='link_rules' to='/rules'>Rules</Link>
         

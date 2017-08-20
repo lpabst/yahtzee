@@ -25,6 +25,17 @@
     cursor: pointer;
 }
 
+.yahtzee_modal{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    left: calc(50% - 150px);
+    top: calc(50% - 150px);
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px #555;
+    background: #ccc;
+}
+
 .link_rules{
     width: 120px;
     height: 34px;
