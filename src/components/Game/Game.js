@@ -35,7 +35,8 @@ class Game extends Component {
       isYahtzee: false,
       finalDice: {},
       yahtzeeNum: null,
-      forceUpperScore: false
+      forceUpperScore: false,
+      userSelectionString: ''
     }
 
     this.assertSelection = this.assertSelection.bind(this);
@@ -267,7 +268,8 @@ class Game extends Component {
     }
     this.setState({
       showAreYouSure: true,
-      userScoreSelection: num
+      userScoreSelection: num,
+      userSelectionString: match
     })
   }
 
@@ -414,7 +416,7 @@ class Game extends Component {
     let areYouSure = null;
     if (this.state.showAreYouSure){
       areYouSure =  <div className='are_you_sure'>
-                      <p>Are You Sure?</p>
+                      <p>Are You Sure you want to score in the { this.state.userSelectionString } category?</p>
                       <button onClick={ this.assertSelection } >Yes</button>
                       <button onClick={ this.closeModal } >No</button>
                     </div>
