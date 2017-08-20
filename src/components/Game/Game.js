@@ -34,13 +34,16 @@ class Game extends Component {
       showYahtzeeModal: false,
       isYahtzee: false,
       finalDice: {},
-      yahtzeeNum: null
+      yahtzeeNum: null,
+      forceUpperScore: false
     }
 
     this.assertSelection = this.assertSelection.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.closeYahtzeeModal = this.closeYahtzeeModal.bind(this);
     this.selectScore = this.selectScore.bind(this);
     this.rollDice = this.rollDice.bind(this);
+    this.bonusYahtzee = this.bonusYahtzee.bind(this);
     this.setDiceAside = this.setDiceAside.bind(this);
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
   }
@@ -281,7 +284,8 @@ class Game extends Component {
 
       for (let i = 0; i < diceOnTable.length; i ++){
         let r = Math.floor( Math.random()*6) + 1;
-        diceOnTable[i] = r;
+        // diceOnTable[i] = r;
+        diceOnTable[i] = 5
       }
       this.setState({
         diceOnTable: diceOnTable,
@@ -337,16 +341,20 @@ class Game extends Component {
     if (this.state[num] === ''){
       //user hasn't scored upper section yet
       let state = this.state
-      state[num] = num * 5
+      state[num] = this.state.yahtzeeNum * 5
       let newState = Object.assign({}, this.state, state)
       this.state = newState
       this.setState({
         rollNum: 1,
         diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
-        savedDice: []
+        savedDice: [],
+        forceUpperScore: true
       })
     }else{
       //upper section has been scored, user may select any other box they wish. Play continues as normal
+      this.setState({
+        forceUpperScore: false
+      })
     }
   }
 
@@ -427,9 +435,14 @@ class Game extends Component {
     }
 
     let yahtzeeModal = null;
-    if(this.state.showYahtzeeModal){
+    if(this.state.showYahtzeeModal && this.state.forceUpperScore){
       yahtzeeModal = <div className='yahtzee_modal'>
-          <p>When you score more than one Yahtzee in a game, you get 100 bonus points, and you get to use the yahtzee to score in another spot. If your upper score for that number hasn't yet been filled, you MUST score up there. If not, you can score in any of the lower section categories and receive that score. For instance, if you roll a yahtzee with fives, and you haven't scored in the fives section up top, you must score there. If you already have that section filled in, you can score in the large straight caterogy if you wish, and receive the full 40 points!</p>
+          <p>When you score more than one Yahtzee in a game, you get 100 bonus points, which have already been applied for you. Your upper score for that number hasn't yet been filled. You MUST score up there, so we have filled in that spot for you! Roll the dice again to keep playing.</p>
+          <button onClick={ this.closeYahtzeeModal }>Close</button>
+        </div>
+    }else if (this.state.showYahtzeeModal){
+      yahtzeeModal = <div className='yahtzee_modal'>
+          <p>When you score more than one Yahtzee in a game, you get 100 bonus points, and you get to use the yahtzee to score in another spot. Your upper score has already been filled in, so you can score in any of the lower section categories and receive that score. For instance, you can score in the large straight caterogy if you wish, and receive the full 40 points!</p>
           <button onClick={ this.closeYahtzeeModal }>Close</button>
         </div>
     }else{
