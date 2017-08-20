@@ -36,9 +36,11 @@ class Game extends Component {
       finalDice: {},
       yahtzeeNum: null,
       forceUpperScore: false,
-      userSelectionString: ''
+      userSelectionString: '',
+      selectionsMade: 0
     }
 
+    this.checkHighScores = this.checkHighScores.bind(this);
     this.assertSelection = this.assertSelection.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.closeYahtzeeModal = this.closeYahtzeeModal.bind(this);
@@ -47,6 +49,10 @@ class Game extends Component {
     this.bonusYahtzee = this.bonusYahtzee.bind(this);
     this.setDiceAside = this.setDiceAside.bind(this);
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
+  }
+
+  checkHighScores(){
+    console.log('axios call')
   }
 
   assertSelection(){
@@ -177,6 +183,9 @@ class Game extends Component {
               }
             }
           }
+          if (this.state.isYahtzee){
+            fullhouseScore = 25;
+          }
           this.setState({
             fullhouse: fullhouseScore,
             rollNum: 1,
@@ -191,6 +200,9 @@ class Game extends Component {
           if ((finalDice[1] >= 1 && finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1) || (finalDice[2] >= 1 && finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1) || (finalDice[3] >= 1 && finalDice[4] >= 1 && finalDice[5] >= 1 && finalDice[6] >= 1) ){
             smallStraightScore = 30;
           }
+          if (this.state.isYahtzee){
+            smallStraightScore = 30;
+          }
           this.setState({
             smallStraight: smallStraightScore,
             rollNum: 1,
@@ -203,6 +215,9 @@ class Game extends Component {
         if (this.state.largeStraight === ''){
           let largeStraightScore = 0;
           if ((finalDice[1] === 1 && finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1) || ((finalDice[2] === 1 && finalDice[3] === 1 && finalDice[4] === 1 && finalDice[5] === 1 && finalDice[6] === 1))){
+            largeStraightScore = 40;
+          }
+          if (this.state.isYahtzee){
             largeStraightScore = 40;
           }
           this.setState({
@@ -226,7 +241,13 @@ class Game extends Component {
       default:
       console.log('default switch')
     }
+    this.setState({
+      selectionsMade: this.state.selectionsMade + 1
+    })
     this.closeModal();
+    if (this.state.selectionsMade >= 12){
+      this.checkHighScores()
+    }
   }
 
   closeModal(){
@@ -283,6 +304,9 @@ class Game extends Component {
       let { diceOnTable } = this.state;
       let cup = document.getElementById('cup');
       cup.style.animation = 'rollDice 2s';
+      setTimeout(function() {
+        cup.style.animation = 'none'
+      }, 2000);
 
       for (let i = 0; i < diceOnTable.length; i ++){
         let r = Math.floor( Math.random()*6) + 1;
@@ -350,8 +374,15 @@ class Game extends Component {
         rollNum: 1,
         diceOnTable: [...this.state.diceOnTable, ...this.state.savedDice],
         savedDice: [],
-        forceUpperScore: true
-      })
+        forceUpperScore: true,
+        selectionsMade: this.state.selectionsMade + 1
+      },
+        function(){
+          if (this.state.selectionsMade >= 13){
+            this.checkHighScores()
+          }
+        }
+      )
     }else{
       //upper section has been scored, user may select any other box they wish. Play continues as normal
       this.setState({
