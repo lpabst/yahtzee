@@ -91,7 +91,7 @@ class Scoresheet extends Component {
 
           <div className='total_div totals'>
             <h3>Grand Total</h3>
-            <p className='scoresheet_scores'>{Number(this.props.upperTotal) + Number(this.props.lowerTotal)}</p>
+            <p className='scoresheet_scores'>{Number(this.props.upperTotal) + Number(this.props.lowerTotal) + Number(this.props.bonus)}</p>
           </div>
 
       </div>
