@@ -42,7 +42,8 @@ class Game extends Component {
       userSelectionString: '',
       selectionsMade: 0,
       highScores: [{}],
-      username: ''
+      username: '',
+      showHighScores: false
     }
 
     this.getGrandTotal = this.getGrandTotal.bind(this);
@@ -56,6 +57,7 @@ class Game extends Component {
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
     this.updateHighScores = this.updateHighScores.bind(this);
+    this.newGame = this.newGame.bind(this);
   }
 
   componentDidMount(){
@@ -482,6 +484,48 @@ class Game extends Component {
       name: this.state.username,
       id: this.state.highScores[4].id
     })
+    .then( res => {
+      this.setState({
+        highScores: res.data,
+        showHighScores: true
+      })
+    })
+  }
+
+  newGame(){
+    this.setState({
+      showAreYouSure: false,
+      ones: '',
+      twos: '',
+      threes: '',
+      fours: '',
+      fives: '',
+      sixes: '',
+      threeKind: '',
+      fourKind: '',
+      fullhouse: '',
+      smallStraight: '',
+      largeStraight: '',
+      yahtzee: '',
+      chance: '',
+      upperTotal: 0,
+      bonus: 0,
+      lowerTotal: 0,
+      grandTotal: 0,
+      savedDice: [],
+      diceOnTable: [6, 6, 6, 6, 6],
+      rollNum: 1,
+      userScoreSelection: '',
+      showYahtzeeModal: false,
+      isYahtzee: false,
+      finalDice: {},
+      yahtzeeNum: null,
+      forceupperTotal: false,
+      userSelectionString: '',
+      selectionsMade: 0,
+      username: '',
+      showHighScores: false
+    })
   }
 
   render() {
@@ -545,6 +589,19 @@ class Game extends Component {
       gameOverModal = null;
     }
 
+    let highScores = null;
+    if (this.state.showHighScores){
+      highScores = <div className='high_scores_modal'>
+          <h3>Classic High Scores</h3>
+          {this.state.highScores.map( (data, i) => {
+            return <p key={i}> {data.score} - {data.name} </p>
+          })}
+          <button onClick={ this.newGame }>New Game</button>
+        </div>
+    }else{
+      highScores = null;
+    }
+
     let {ones, twos, threes, fours, fives, sixes, threeKind, fourKind, fullhouse, smallStraight, largeStraight, yahtzee, chance, bonus} = this.state;
     let upperTotal = Number(ones)+Number(twos)+Number(threes)+Number(fours)+Number(fives)+Number(sixes);
     if (upperTotal >= 63){
@@ -558,6 +615,7 @@ class Game extends Component {
         { areYouSure }
         { yahtzeeModal }
         { gameOverModal }
+        { highScores }
 
         <Link className='link_rules' to='/rules'>Rules</Link>
         

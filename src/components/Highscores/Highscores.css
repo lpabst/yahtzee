@@ -1,0 +1,18 @@
+
+.high_scores{
+    width: 100%;
+    height: 100vh;
+    font-size: 34px;
+    font-weight: bold;
+    padding: 40px 40px 40px 40px;
+}
+
+.high_scores p{
+    text-decoration: underline;
+    font-size: 48px;
+}
+
+.high_scores li{
+    border: 1px solid black;
+}
+
