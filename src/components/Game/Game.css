@@ -89,15 +89,13 @@
     color: #333;
 }
 
-.link_rules{
+.link{
     width: 120px;
     height: 34px;
-    font-size: 22px;
     font-weight: bold;
     border-radius: 3px;
     position: absolute;
     right: 20px;
-    top: 20px;
     text-decoration: none;
     background: #227771;
     text-align: center;
@@ -107,8 +105,18 @@
     box-shadow: 2px 2px 3px #000;
 }
 
-.link_rules:hover{
+.link:hover{
     transform: scale(1.1);
+}
+
+.link_rules{
+    font-size: 22px;
+    top: 20px;
+}
+
+.link_high_scores{
+    font-size: 16px;
+    top: 60px;
 }
 
 #cup{
