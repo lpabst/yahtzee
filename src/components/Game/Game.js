@@ -74,20 +74,26 @@ class Game extends Component {
     let grandTotal = upperScore + bonus + lowerScore;
 
     if (grandTotal > this.state.highScores[4].score){
-      //update high score table
-      console.log('new high score earned')
       axios.put('/api/highscores/classic', {
         score: grandTotal,
         name: this.state.username,
         id: this.state.highScores[4].id
       })
       .then( res => {
-        console.log(res)
+        this.setState({
+          gameOverMessage: 'That is in the top five high scores!'
+        })
+      })
+    }else{
+      let randomMessage = this.generateRandomMessage()
+      this.setState({
+        gameOverMessage: randomMessage
       })
     }
+  }
 
-    //display high score table no matter what
-    
+  generateRandomMessage(){
+    return 'weak sauce'
   }
 
   assertSelection(){
@@ -278,11 +284,12 @@ class Game extends Component {
     }
     this.setState({
       selectionsMade: this.state.selectionsMade + 1
+    }, function(){
+      if (this.state.selectionsMade >= 13){
+        this.checkHighScores()
+      }
     })
     this.closeModal();
-    if (this.state.selectionsMade >= 12){
-      this.checkHighScores()
-    }
   }
 
   closeModal(){
@@ -345,8 +352,8 @@ class Game extends Component {
 
       for (let i = 0; i < diceOnTable.length; i ++){
         let r = Math.floor( Math.random()*6) + 1;
-        // diceOnTable[i] = r;
-        diceOnTable[i] = 5
+        diceOnTable[i] = r;
+        // diceOnTable[i] = 5
       }
       this.setState({
         diceOnTable: diceOnTable,
@@ -472,12 +479,14 @@ class Game extends Component {
       chance,
     } = this.state
     let bonus;
-
-    if (Number(ones) + Number(twos) + Number(threes) + Number(fours) + Number(fives) + Number(sixes) >= 63){
+    let upperTotal = Number(ones) + Number(twos) + Number(threes) + Number(fours) + Number(fives) + Number(sixes);
+    if (upperTotal >= 63){
       bonus = 35;
     }else{
       bonus = 0;
     }
+    let lowerTotal = Number(threeKind) + Number(fourKind) + Number(fullhouse) + Number(smallStraight) + Number(largeStraight) + Number(yahtzee) + Number(chance);
+    let grandTotal = lowerTotal + bonus + upperTotal;
 
     let areYouSure = null;
     if (this.state.showAreYouSure){
@@ -517,11 +526,23 @@ class Game extends Component {
       yahtzeeModal = null
     }
 
+    let gameOverModal = null;
+    if (this.state.selectionsMade >= 13){
+      gameOverModal = <div className='game_over_modal'>
+          <h3>Game Over!</h3>
+          <h4>Your Final Score: { grandTotal }</h4>
+          <Link to='/highscores' className='game_over_button'>OK</Link>
+        </div>
+    }else{
+      gameOverModal = null;
+    }
+
     return (
       <div className="game">
 
         { areYouSure }
         { yahtzeeModal }
+        { gameOverModal }
 
         <Link className='link_rules' to='/rules'>Rules</Link>
         
@@ -553,7 +574,7 @@ class Game extends Component {
 
         <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
 
-        <h4 className='roll_number' style={ rollStyles }>Roll: { rollNum }</h4>
+        <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum }</h4>
 
       </div>
     );
