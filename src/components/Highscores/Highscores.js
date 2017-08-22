@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './Highscores.css';
 
-
+/************* build high scores link on home page and vice versa. 
+ * make high scores page look decent
+ * host app and email family to test and report bugs
+*/
 class Highscores extends Component {
 
   constructor(props){
