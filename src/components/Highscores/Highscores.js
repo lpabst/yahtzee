@@ -3,9 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Highscores.css';
 
-/************* 
- * host app and email family to test and report bugs
-*/
 class Highscores extends Component {
 
   constructor(props){

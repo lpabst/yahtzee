@@ -618,7 +618,9 @@ class Game extends Component {
         { highScores }
 
         <Link className='link link_rules' to='/rules'>Rules</Link>
-        <Link className='link link_high_score' to='/highscores'>High Scores</Link>
+        <Link className='link link_high_scores' 
+        to='/highscores' 
+        title='This quits the game'>High Scores</Link>
         
         <Scoresheet ones={ones}
         twos={twos}
