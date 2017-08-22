@@ -16,7 +16,7 @@ module.exports = {
   updateHighScores: function(req, res, next){
     const db = app.get('db');
     let gameplay = req.params.gameplay;
-    db.updateHighScores([]).then( res => {
+    db.updateHighScores([req.body.score, req.body.name, req.body.id]).then( response => {
       db.getHighScores([gameplay]).then( scores => {
         return res.status(200).send(scores)
       })

@@ -38,7 +38,9 @@ class Game extends Component {
       yahtzeeNum: null,
       forceUpperScore: false,
       userSelectionString: '',
-      selectionsMade: 0
+      selectionsMade: 0,
+      highScores: [{}],
+      username: 'Test Name'
     }
 
     this.checkHighScores = this.checkHighScores.bind(this);
@@ -55,23 +57,35 @@ class Game extends Component {
   componentDidMount(){
     axios.get('/api/highscores/classic')
     .then( res => {
-      console.log(res)
-    })
-    axios.put('/api/highscores/classic')
-    .then( res => {
-      console.log(res)
+      this.setState({
+        highScores: res.data
+      })
     })
   }
 
   checkHighScores(){
-    if (false){
+    let {ones, twos, threes, fours, fives, sixes, threeKind, fourKind, fullhouse, smallStraight, largeStraight, yahtzee, chance} = this.state;
+    let bonus = 0;
+    let upperScore = Number(ones) + Number(twos) + Number(threes) + Number(fours) + Number(fives) + Number(sixes);
+    if (upperScore >= 63){
+      bonus = 35;
+    }
+    let lowerScore = Number(threeKind) + Number(fourKind) + Number(fullhouse) + Number(smallStraight) + Number(largeStraight) + Number(yahtzee) + Number(chance);
+    let grandTotal = upperScore + bonus + lowerScore;
+
+    if (grandTotal > this.state.highScores[4].score){
       //update high score table
-      axios.put('/api/highscores/classic')
+      console.log('new high score earned')
+      axios.put('/api/highscores/classic', {
+        score: grandTotal,
+        name: this.state.username,
+        id: this.state.highScores[4].id
+      })
       .then( res => {
         console.log(res)
       })
     }
-    
+
     //display high score table no matter what
     
   }
