@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Scoresheet from './Scoresheet/Scoresheet.js';
 import Board from './Board/Board.js';
@@ -51,8 +52,28 @@ class Game extends Component {
     this.returnDiceToTable = this.returnDiceToTable.bind(this);
   }
 
+  componentDidMount(){
+    axios.get('/api/highscores/classic')
+    .then( res => {
+      console.log(res)
+    })
+    axios.put('/api/highscores/classic')
+    .then( res => {
+      console.log(res)
+    })
+  }
+
   checkHighScores(){
-    console.log('axios call')
+    if (false){
+      //update high score table
+      axios.put('/api/highscores/classic')
+      .then( res => {
+        console.log(res)
+      })
+    }
+    
+    //display high score table no matter what
+    
   }
 
   assertSelection(){

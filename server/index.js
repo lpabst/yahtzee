@@ -27,7 +27,8 @@ app.use(express.static(__dirname + './../build'))
 var userController = require("./userController.js");
 
 //////////Endpoints for the front end
-
+app.get('/api/highscores/:gameplay', userController.getHighScores)
+app.put('/api/highscores/:gameplay', userController.updateHighScores)
 
 
 
