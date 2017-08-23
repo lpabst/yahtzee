@@ -348,6 +348,7 @@ class Game extends Component {
   }
 
   rollDice(){
+    this.closeModal();
     if (this.state.rollNum === 1){
       this.setState({
         savedDice: []
@@ -650,7 +651,7 @@ class Game extends Component {
 
         <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
 
-        <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum }</h4>
+        <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum || 0 }</h4>
 
       </div>
     );
