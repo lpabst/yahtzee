@@ -12,6 +12,7 @@ class Game extends Component {
     super(props);
 
     this.state = {
+      startGame: true,
       showAreYouSure: false,
       ones: '',
       twos: '',
@@ -58,6 +59,7 @@ class Game extends Component {
     this.updateUsername = this.updateUsername.bind(this);
     this.updateHighScores = this.updateHighScores.bind(this);
     this.newGame = this.newGame.bind(this);
+    this.closeStartGameHelp = this.closeStartGameHelp.bind(this);
   }
 
   componentDidMount(){
@@ -66,6 +68,14 @@ class Game extends Component {
       this.setState({
         highScores: res.data
       })
+    })
+    document.getElementById('cup').addEventListener('mouseenter', function(){
+      document.getElementById('cup').style.animation = 'shakeCup 0.2s infinite'
+    })
+    document.getElementById('cup').addEventListener('mouseleave', function(){
+      if (document.getElementById('cup').style.animation === 'shakeCup 0.2s infinite'){
+        document.getElementById('cup').style.animation = 'none'
+      }
     })
   }
 
@@ -349,6 +359,7 @@ class Game extends Component {
 
   rollDice(){
     this.closeModal();
+    this.closeStartGameHelp();
     if (this.state.rollNum === 1){
       this.setState({
         savedDice: []
@@ -529,7 +540,24 @@ class Game extends Component {
     })
   }
 
+  closeStartGameHelp(){
+    this.setState({
+      startGame: false
+    })
+  }
+
   render() {
+
+    let howToPlay = null;
+    if (this.state.startGame){
+      howToPlay = <ul className='how_to_play'>
+          <li>Roll the dice by clicking on the cup</li>
+          <li>Click on the dice to set them aside. Any dice still on the table will be re-rolled when you click on the cup</li>
+          <li>Hover over the scoresheet to see what each category is</li>
+          <li>Click on a category during any part of your turn to score there. You don't have to use all 3 rolls if you don't want to</li>
+          <button onClick={ this.closeStartGameHelp }>Close</button>
+        </ul>
+    }
 
     let areYouSure = null;
     if (this.state.showAreYouSure){
@@ -613,6 +641,7 @@ class Game extends Component {
     return (
       <div className="game">
 
+        { howToPlay }
         { areYouSure }
         { yahtzeeModal }
         { gameOverModal }

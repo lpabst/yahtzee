@@ -6,6 +6,29 @@
     padding: 20px 20px 20px 100px;
 }
 
+.how_to_play{
+    width: 300px;
+    height: 240px;
+    background: #3862AC;
+    color: #222;
+    font-size: 14px;
+    padding: 10px 10px 10px 10px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px black;
+    position: fixed;
+    top: calc(50% - 140px);
+    left: calc(50% - 150px);
+    z-index: 160;
+}
+
+.how_to_play li{
+    margin-bottom: 8px;
+}
+
+.how_to_play button{
+    cursor: pointer;
+}
+
 .are_you_sure{
     width: 200px;
     height: 120px;
@@ -142,11 +165,11 @@
     width: 500px;
     height: 36px;
     text-align: right;
-    font-size: 26px;
+    font-size: 25px;
     font-weight: bold;
     line-height: 30px;
     position: fixed;
-    top: 20px;
+    top: 13px;
     right: 200px;
 }
 
