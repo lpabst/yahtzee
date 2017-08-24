@@ -647,10 +647,13 @@ class Game extends Component {
         { gameOverModal }
         { highScores }
 
-        <Link className='link link_rules' to='/rules'>Rules</Link>
+        <Link className='link link_rules' 
+        to='/rules'
+        title='This will end your game'>Rules</Link>
+
         <Link className='link link_high_scores' 
         to='/highscores' 
-        title='This quits the game'>High Scores</Link>
+        title='This will end your game'>High Scores</Link>
         
         <Scoresheet ones={ones}
         twos={twos}
