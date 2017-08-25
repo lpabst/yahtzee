@@ -3,7 +3,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Scoresheet from './Scoresheet/Scoresheet.js';
 import Board from './Board/Board.js';
-import cup from './../../img/cup.png';
+import classicCup from './../../img/cup.png';
+import metalCup from './../../img/metalCup.png';
+import flamesCup from './../../img/cup.png';
 import './Game.css';
 
 class Game extends Component {
@@ -44,7 +46,9 @@ class Game extends Component {
       selectionsMade: 0,
       highScores: [{}],
       username: '',
-      showHighScores: false
+      showHighScores: false,
+      showSettingsModal: false,
+      theme: 'Classic'
     }
 
     this.getGrandTotal = this.getGrandTotal.bind(this);
@@ -60,6 +64,9 @@ class Game extends Component {
     this.updateHighScores = this.updateHighScores.bind(this);
     this.newGame = this.newGame.bind(this);
     this.closeStartGameHelp = this.closeStartGameHelp.bind(this);
+    this.toggleSettingsModal = this.toggleSettingsModal.bind(this);
+    this.closeSettingsModal = this.closeSettingsModal.bind(this);
+    this.updateTheme = this.updateTheme.bind(this);
   }
 
   componentDidMount(){
@@ -360,6 +367,8 @@ class Game extends Component {
   rollDice(){
     this.closeModal();
     this.closeStartGameHelp();
+    this.closeSettingsModal();
+    this.closeYahtzeeModal();
     if (this.state.rollNum === 1){
       this.setState({
         savedDice: []
@@ -546,7 +555,43 @@ class Game extends Component {
     })
   }
 
+  toggleSettingsModal(){
+    this.closeModal();
+    this.closeStartGameHelp();
+    this.closeYahtzeeModal();
+    this.setState({
+      showSettingsModal: !this.state.showSettingsModal
+    })
+  }
+
+  closeSettingsModal(){
+    this.setState({
+      showSettingsModal: false
+    })
+  }
+
+  updateTheme(e){
+    this.setState({
+      theme: e.target.value
+    })
+  }
+
   render() {
+
+    let settingsModal = null;
+    if (this.state.showSettingsModal){
+      settingsModal = <div className='settings_modal'>
+          <h4>Theme</h4>
+          <p onClick={ this.closeSettingsModal }>X</p>
+          <select onChange={ this.updateTheme }>
+            <option>Classic</option>
+            <option>Metal</option>
+            <option>Flames</option>
+          </select>
+        </div>
+    }else{
+      settingsModal = null;
+    }
 
     let howToPlay = null;
     if (this.state.startGame){
@@ -631,6 +676,39 @@ class Game extends Component {
       highScores = null;
     }
 
+    let cup = classicCup;
+    let settings = {transform: 'scale(0.5) rotate(90deg)'}
+    let background = {}
+    switch(this.state.theme){
+      case 'Classic':
+        background={
+          background: '#663300'
+        }
+        // cup = classicCup
+        // settings = {
+        //   transform: 'scale(0.5) rotate(90deg)'
+        // }
+        break;
+      case 'Metal':
+        background={
+          background: '#777'
+        }
+        // cup = metalCup
+        // settings = {
+        //   transform: 'scale(0.7) rotate(0deg)'
+        // }
+        break;
+      case 'Flames':
+        background={
+          background: '#e8811d'
+        }
+        // cup = flamesCup
+        break;
+      default:
+        // cup = classicCup
+        break;
+    }
+
     let {ones, twos, threes, fours, fives, sixes, threeKind, fourKind, fullhouse, smallStraight, largeStraight, yahtzee, chance, bonus} = this.state;
     let upperTotal = Number(ones)+Number(twos)+Number(threes)+Number(fours)+Number(fives)+Number(sixes);
     if (upperTotal >= 63){
@@ -639,13 +717,14 @@ class Game extends Component {
     let lowerTotal =  Number(threeKind)+Number(fourKind)+Number(fullhouse)+Number(smallStraight)+Number(largeStraight)+Number(yahtzee)+Number(chance);
 
     return (
-      <div className="game">
+      <div className="game" style={background}>
 
         { howToPlay }
         { areYouSure }
         { yahtzeeModal }
         { gameOverModal }
         { highScores }
+        { settingsModal }
 
         <Link className='link link_rules' 
         to='/rules'
@@ -654,6 +733,10 @@ class Game extends Component {
         <Link className='link link_high_scores' 
         to='/highscores' 
         title='This will end your game'>High Scores</Link>
+
+        <button className='link settings'
+        onClick={ this.toggleSettingsModal }
+        title='change the settings'>Settings</button>
         
         <Scoresheet ones={ones}
         twos={twos}
@@ -679,9 +762,11 @@ class Game extends Component {
         savedDice={ this.state.savedDice } 
         setDiceAside={ this.setDiceAside }
         returnDiceToTable={ this.returnDiceToTable }
+        theme={ this.state.theme }
         />
 
-        <img id='cup' src={ cup } onClick={ this.rollDice } alt='yahtzee dice cup' />
+        <img id='cup' src={ cup } onClick={ this.rollDice } 
+        alt='yahtzee dice cup' style={settings} />
 
         <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum || 0 }</h4>
 

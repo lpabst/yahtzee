@@ -7,6 +7,22 @@ class Board extends Component {
   render() {
 
     let savedDice = this.props.savedDice.sort();
+    let background;
+
+    switch(this.props.theme){
+      case 'Classic':
+        background = '#277714'
+        break;
+      case 'Metal':
+        background = '#444'
+        break;
+      case 'Flames':
+        background = '#e65e00'
+        break;
+      default:
+        background = '#277714'
+        break;
+    }
 
     return (
       <div className='playing_area'>
@@ -39,7 +55,7 @@ class Board extends Component {
           }
         </div>
 
-        <div className="board">
+        <div className="board" style={{background: background}}>
           {
             this.props.diceOnTable.map( (die, i) => {
               if (die === 1){

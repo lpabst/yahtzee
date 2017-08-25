@@ -2,7 +2,7 @@
 .game{
     width: 100%;
     position: relative;
-    background: #663300;
+    /* background: #663300; */
     padding: 20px 20px 20px 100px;
 }
 
@@ -100,6 +100,32 @@
     text-decoration: underline;
 }
 
+.settings_modal{
+    width: 200px;
+    height: 120px;
+    z-index: 120;
+    position: fixed;
+    left: calc(50% - 100px);
+    top: calc(50% - 80px);
+    background: #343;
+    color: white;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    box-shadow: 2px 2px 4px #000;
+}
+
+.settings_modal p{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.settings_modal p:hover{
+    color: #ddd;
+    transform: scale(1.1);
+}
+
 .game_over_button{
     padding: 5px 10px 5px 10px;
     border-radius: 2px;
@@ -142,8 +168,16 @@
     top: 60px;
 }
 
+.settings{
+    bottom: 15px;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+    background: #222;
+    color: #ddd;
+}
+
 #cup{
-    transform: scale(0.5) rotate(90deg);
     position: absolute;
     right: -150px;
     bottom: 50px;
