@@ -179,8 +179,6 @@
 
 #cup{
     position: absolute;
-    right: -150px;
-    bottom: 50px;
     cursor: pointer;
     transition: all 1s;
     -webkit-touch-callout: none;
@@ -189,10 +187,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-#cup:hover{
-    animation: shakeCup 0.2s infinite;
 }
 
 .roll_number{
@@ -207,9 +201,23 @@
     right: 200px;
 }
 
-@keyframes shakeCup{
+@keyframes shakeClassicCup{
     50%{
         transform: scale(0.5) rotate(80deg);
+        bottom: 75px;
+    }
+}
+
+@keyframes shakeMetalCup{
+    50%{
+        /* transform: scale(0.5) rotate(80deg); */
+        bottom: 75px;
+    }
+}
+
+@keyframes shakeFlamesCup{
+    50%{
+        /* transform: scale(0.5) rotate(80deg); */
         bottom: 75px;
     }
 }

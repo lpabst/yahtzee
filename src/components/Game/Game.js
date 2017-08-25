@@ -5,7 +5,7 @@ import Scoresheet from './Scoresheet/Scoresheet.js';
 import Board from './Board/Board.js';
 import classicCup from './../../img/cup.png';
 import metalCup from './../../img/metalCup.png';
-import flamesCup from './../../img/cup.png';
+import flamesCup from './../../img/flamesCup.png';
 import './Game.css';
 
 class Game extends Component {
@@ -67,6 +67,8 @@ class Game extends Component {
     this.toggleSettingsModal = this.toggleSettingsModal.bind(this);
     this.closeSettingsModal = this.closeSettingsModal.bind(this);
     this.updateTheme = this.updateTheme.bind(this);
+    this.shakeCup = this.shakeCup.bind(this);
+    this.stopShakingCup = this.stopShakingCup.bind(this);
   }
 
   componentDidMount(){
@@ -75,14 +77,6 @@ class Game extends Component {
       this.setState({
         highScores: res.data
       })
-    })
-    document.getElementById('cup').addEventListener('mouseenter', function(){
-      document.getElementById('cup').style.animation = 'shakeCup 0.2s infinite'
-    })
-    document.getElementById('cup').addEventListener('mouseleave', function(){
-      if (document.getElementById('cup').style.animation === 'shakeCup 0.2s infinite'){
-        document.getElementById('cup').style.animation = 'none'
-      }
     })
   }
 
@@ -576,6 +570,39 @@ class Game extends Component {
     })
   }
 
+  shakeCup(){
+    if (this.state.showAreYouSure ||
+    this.state.showHighScores || 
+    this.state.showSettingsModal || 
+    this.state.showYahtzeeModal ||
+    this.state.startGame){
+      // console.log('modal open')
+      return;
+    }
+    let cup = document.getElementById('cup');
+    let {theme} = this.state 
+    if (theme === 'Classic'){
+      // console.log('classic shake')
+      cup.style.animation = 'shakeClassicCup 0.2s infinite'
+    }else if (theme === 'Metal'){
+      // console.log('metal shake')
+      cup.style.animation = 'shakeMetalCup 0.2s infinite'
+    }else if (theme === 'Flames'){
+      // console.log('flames shake')
+      cup.style.animation = 'shakeFlamesCup 0.2s infinite'
+    }
+    // else{
+    //   // console.log('no theme found')
+    // }
+  }
+
+  stopShakingCup(){
+    let cup = document.getElementById('cup');
+    if (cup.style.animation !== 'rollDice 2s'){
+      cup.style.animation = 'none'
+    }
+  }
+
   render() {
 
     let settingsModal = null;
@@ -677,44 +704,52 @@ class Game extends Component {
     }
 
     let cup = classicCup;
-    let rotate = {transform: 'scale(0.5) rotate(90deg)'}
-    let background = {}
+    let cupStyles = {};
+    let background = {};
     switch(this.state.theme){
       case 'Classic':
         background={
           background: '#663300'
         }
-        // cup = classicCup
-        // rotate = {
-        //   transform: 'scale(0.5) rotate(90deg)'
-        // }
+        cup = classicCup
+        cupStyles = {
+          transform: 'scale(0.5) rotate(90deg)',
+          right: '-150px',
+          bottom: '50px'
+        }
         break;
       case 'Metal':
         background={
           background: '#777'
         }
-        // cup = metalCup
-        // rotate = {
-        //   transform: 'scale(0.7) rotate(0deg)'
-        // }
+        cup = metalCup
+        cupStyles = {
+          transform: 'scale(0.7)',
+          right: '-40px',
+          bottom: '100px'
+        }
         break;
       case 'Flames':
         background={
           background: '#e8811d'
         }
-        // cup = flamesCup
-        // rotate = {
-        //   transform: 'scale(0.7) rotate(0deg)'
-        // }
+        cup = flamesCup
+        cupStyles = {
+          transform: 'scale(0.7)',
+          right: '-40px',
+          bottom: '100px'
+        }
         break;
       default:
         background={
           background: '#663300'
         }
-        // cup = classicCup
-        // rotate = {
-        //   transform: 'scale(0.5) rotate(90deg)'
-        // }
+        cup = classicCup
+        cupStyles = {
+          transform: 'scale(0.5) rotate(90deg)',
+          right: '-150px',
+          bottom: '50px'
+        }
         break;
     }
 
@@ -775,7 +810,8 @@ class Game extends Component {
         />
 
         <img id='cup' src={ cup } onClick={ this.rollDice } 
-        alt='yahtzee dice cup' style={rotate} />
+        alt='yahtzee dice cup' style={cupStyles}
+        onMouseEnter={ this.shakeCup } onMouseLeave={ this.stopShakingCup } />
 
         <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum || 0 }</h4>
 
