@@ -1,6 +1,7 @@
 
 .game{
     width: 100%;
+    min-height: 100vh;
     position: relative;
     /* background: #663300; */
     padding: 20px 20px 20px 100px;
@@ -199,6 +200,7 @@
     position: fixed;
     top: 13px;
     right: 200px;
+    text-shadow: 1px 1px 1px #ddd;
 }
 
 @keyframes shakeClassicCup{

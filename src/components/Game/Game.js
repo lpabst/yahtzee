@@ -709,7 +709,8 @@ class Game extends Component {
     switch(this.state.theme){
       case 'Classic':
         background={
-          background: '#663300'
+          background: 'url("http://cdn.wallpapersafari.com/79/31/Em1adP.jpg")center no-repeat',
+          backgroundSize: 'cover'
         }
         cup = classicCup
         cupStyles = {
@@ -720,7 +721,8 @@ class Game extends Component {
         break;
       case 'Metal':
         background={
-          background: '#777'
+          background: 'url("https://s-media-cache-ak0.pinimg.com/originals/81/66/ce/8166ce752069e7df3a55b993fe9ae1d4.jpg")center no-repeat',
+          backgroundSize: 'cover'
         }
         cup = metalCup
         cupStyles = {
@@ -731,7 +733,8 @@ class Game extends Component {
         break;
       case 'Flames':
         background={
-          background: '#e8811d'
+          background: 'url("https://orig14.deviantart.net/e267/f/2014/311/a/d/background_fire_theme_by_lockeliefather-d85ka9h.png")center no-repeat',
+          backgroundSize: 'cover'
         }
         cup = flamesCup
         cupStyles = {
@@ -742,7 +745,8 @@ class Game extends Component {
         break;
       default:
         background={
-          background: '#663300'
+          background: 'url("http://cdn.wallpapersafari.com/79/31/Em1adP.jpg")center no-repeat',
+          backgroundSize: 'cover'
         }
         cup = classicCup
         cupStyles = {
