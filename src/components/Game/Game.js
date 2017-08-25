@@ -677,7 +677,7 @@ class Game extends Component {
     }
 
     let cup = classicCup;
-    let settings = {transform: 'scale(0.5) rotate(90deg)'}
+    let rotate = {transform: 'scale(0.5) rotate(90deg)'}
     let background = {}
     switch(this.state.theme){
       case 'Classic':
@@ -685,7 +685,7 @@ class Game extends Component {
           background: '#663300'
         }
         // cup = classicCup
-        // settings = {
+        // rotate = {
         //   transform: 'scale(0.5) rotate(90deg)'
         // }
         break;
@@ -694,7 +694,7 @@ class Game extends Component {
           background: '#777'
         }
         // cup = metalCup
-        // settings = {
+        // rotate = {
         //   transform: 'scale(0.7) rotate(0deg)'
         // }
         break;
@@ -703,9 +703,18 @@ class Game extends Component {
           background: '#e8811d'
         }
         // cup = flamesCup
+        // rotate = {
+        //   transform: 'scale(0.7) rotate(0deg)'
+        // }
         break;
       default:
+        background={
+          background: '#663300'
+        }
         // cup = classicCup
+        // rotate = {
+        //   transform: 'scale(0.5) rotate(90deg)'
+        // }
         break;
     }
 
@@ -766,7 +775,7 @@ class Game extends Component {
         />
 
         <img id='cup' src={ cup } onClick={ this.rollDice } 
-        alt='yahtzee dice cup' style={settings} />
+        alt='yahtzee dice cup' style={rotate} />
 
         <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum || 0 }</h4>
 
