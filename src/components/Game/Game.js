@@ -117,7 +117,7 @@ class Game extends Component {
       'If I had a LOW scores table, we\'d be getting somewhere',
       'I dare you to try again',
     ]
-    let r = Math.floor(Math.random(randomMessages.length))
+    let r = Math.floor(Math.random() * randomMessages.length)
     return randomMessages[r]
   }
 
