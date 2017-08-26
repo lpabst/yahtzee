@@ -48,7 +48,8 @@ class Game extends Component {
       username: '',
       showHighScores: false,
       showSettingsModal: false,
-      theme: 'Classic'
+      theme: 'Classic',
+      audioSrc: ''
     }
 
     this.getGrandTotal = this.getGrandTotal.bind(this);
@@ -363,6 +364,15 @@ class Game extends Component {
     this.closeStartGameHelp();
     this.closeSettingsModal();
     this.closeYahtzeeModal();
+    this.setState({
+      audioSrc: './media/move.wav'
+    }, () => {
+      setTimeout( () => {
+        this.setState({
+          audioSrc: ''
+        })
+      }, 2000)
+    })
     if (this.state.rollNum === 1){
       this.setState({
         savedDice: []
@@ -591,9 +601,9 @@ class Game extends Component {
       // console.log('flames shake')
       cup.style.animation = 'shakeFlamesCup 0.2s infinite'
     }
-    // else{
-    //   // console.log('no theme found')
-    // }
+    this.setState({
+      audioSrc: './media/shakeDice.wav'
+    })
   }
 
   stopShakingCup(){
@@ -601,6 +611,9 @@ class Game extends Component {
     if (cup.style.animation !== 'rollDice 2s'){
       cup.style.animation = 'none'
     }
+    this.setState({
+      audioSrc: ''
+    })
   }
 
   render() {
@@ -714,8 +727,8 @@ class Game extends Component {
         }
         cup = classicCup
         cupStyles = {
-          transform: 'scale(0.5) rotate(90deg)',
-          right: '-150px',
+          transform: 'scale(0.4) rotate(90deg)',
+          right: '-120px',
           bottom: '50px'
         }
         break;
@@ -727,7 +740,7 @@ class Game extends Component {
         cup = metalCup
         cupStyles = {
           transform: 'scale(0.7)',
-          right: '-40px',
+          right: '-10px',
           bottom: '100px'
         }
         break;
@@ -739,7 +752,7 @@ class Game extends Component {
         cup = flamesCup
         cupStyles = {
           transform: 'scale(0.7)',
-          right: '-40px',
+          right: '-20px',
           bottom: '100px'
         }
         break;
@@ -751,7 +764,7 @@ class Game extends Component {
         cup = classicCup
         cupStyles = {
           transform: 'scale(0.5) rotate(90deg)',
-          right: '-150px',
+          right: '-120px',
           bottom: '50px'
         }
         break;
@@ -818,6 +831,8 @@ class Game extends Component {
         onMouseEnter={ this.shakeCup } onMouseLeave={ this.stopShakingCup } />
 
         <h4 className='roll_number' style={ rollStyles }>Rolls remaining this turn: { 4 - rollNum || 0 }</h4>
+
+        <audio src={ this.state.audioSrc } loop autoPlay />
 
       </div>
     );

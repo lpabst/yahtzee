@@ -205,7 +205,7 @@
 
 @keyframes shakeClassicCup{
     50%{
-        transform: scale(0.5) rotate(80deg);
+        transform: scale(0.4) rotate(80deg);
         bottom: 75px;
     }
 }
