@@ -49,7 +49,8 @@ class Game extends Component {
       showHighScores: false,
       showSettingsModal: false,
       theme: 'Classic',
-      audioSrc: ''
+      audioSrc: '',
+      soundIsOn: true
     }
 
     this.getGrandTotal = this.getGrandTotal.bind(this);
@@ -70,6 +71,7 @@ class Game extends Component {
     this.updateTheme = this.updateTheme.bind(this);
     this.shakeCup = this.shakeCup.bind(this);
     this.stopShakingCup = this.stopShakingCup.bind(this);
+    this.toggleSound = this.toggleSound.bind(this);
   }
 
   componentDidMount(){
@@ -364,15 +366,17 @@ class Game extends Component {
     this.closeStartGameHelp();
     this.closeSettingsModal();
     this.closeYahtzeeModal();
-    this.setState({
-      audioSrc: './media/move.wav'
-    }, () => {
-      setTimeout( () => {
-        this.setState({
-          audioSrc: ''
-        })
-      }, 2000)
-    })
+    if (this.state.soundIsOn){
+      this.setState({
+        audioSrc: './media/move.wav'
+      }, () => {
+        setTimeout( () => {
+          this.setState({
+            audioSrc: ''
+          })
+        }, 2000)
+      })
+    }
     if (this.state.rollNum === 1){
       this.setState({
         savedDice: []
@@ -601,9 +605,11 @@ class Game extends Component {
       // console.log('flames shake')
       cup.style.animation = 'shakeFlamesCup 0.2s infinite'
     }
-    this.setState({
-      audioSrc: './media/shakeDice.wav'
-    })
+    if (this.state.soundIsOn){
+      this.setState({
+        audioSrc: './media/shakeDice.wav'
+      })
+    }
   }
 
   stopShakingCup(){
@@ -616,6 +622,12 @@ class Game extends Component {
     })
   }
 
+  toggleSound(){
+    this.setState({
+      soundIsOn: !this.state.soundIsOn
+    })
+  }
+
   render() {
 
     let settingsModal = null;
@@ -623,10 +635,15 @@ class Game extends Component {
       settingsModal = <div className='settings_modal'>
           <h4>Theme</h4>
           <p onClick={ this.closeSettingsModal }>X</p>
-          <select onChange={ this.updateTheme }>
+          <select onChange={ this.updateTheme } value={this.state.theme}>
             <option>Classic</option>
             <option>Metal</option>
             <option>Flames</option>
+          </select>
+          <h4>Sound</h4>
+          <select onChange={ this.toggleSound } value={ this.state.soundIsOn ? 'On' : 'Off' }>
+            <option>On</option>
+            <option>Off</option>
           </select>
         </div>
     }else{

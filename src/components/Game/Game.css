@@ -5,6 +5,7 @@
     position: relative;
     /* background: #663300; */
     padding: 20px 20px 20px 100px;
+    overflow: hidden;
 }
 
 .how_to_play{
@@ -207,6 +208,10 @@
     50%{
         transform: scale(0.4) rotate(80deg);
         bottom: 75px;
+    }
+    100%{
+        transform: scale(0.4) rotate(80deg);
+        bottom: 50px;
     }
 }
 
